@@ -4,6 +4,7 @@
  * CIS 451 Lab 5
  *
  * !!!NAMES!!!
+ * Connor Valley
  *************************************************************/
 
 #include <stdio.h> 
@@ -30,6 +31,16 @@ int main ()
    }
 
    printf("Value a: %p\t Value b: %p\n", (void *) sharedMemoryPtr, (void *) sharedMemoryPtr + SHM_SIZE);
+
+   // Get size of shared memory space using shmctl
+   struct shmid_ds buf;
+   if (shmctl(shmId, IPC_STAT, &buf) < 0) {
+      perror("Unable to get shared memory info");
+      exit(1);
+   }
+
+   printf("Shared Memory Size: %zu bytes\n", buf.shm_segsz);
+
 
    if(shmdt (sharedMemoryPtr) < 0) { 
       perror ("Unable to detach\n"); 
