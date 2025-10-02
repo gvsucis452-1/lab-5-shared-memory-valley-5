@@ -53,6 +53,7 @@ int main() {
 
 	signal(SIGINT, sigHandler);
 
+	// zk I wonder if a struct would have been easier
 	int *lock = (int*) shmPtr;
 	int *reader1Done = (int*) (shmPtr + sizeof(int));
 	int *reader2Done = (int*) (shmPtr + 2 * sizeof(int));
